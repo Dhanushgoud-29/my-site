@@ -310,83 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ==========================================================================
-       TESTIMONIALS SLIDER (CAROUSEL)
-       ========================================================================== */
-    const testimonialsWrapper = document.getElementById('testimonials-wrapper');
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    const prevBtn = document.getElementById('slider-prev');
-    const nextBtn = document.getElementById('slider-next');
-    const dots = document.querySelectorAll('#slider-dots .dot');
-    let sliderIndex = 0;
-    let sliderInterval;
 
-    function updateSlider() {
-        testimonialsWrapper.style.transform = `translateX(-${sliderIndex * 100}%)`;
-        
-        testimonialCards.forEach((card, idx) => {
-            card.classList.remove('active');
-            if (idx === sliderIndex) {
-                card.classList.add('active');
-            }
-        });
-
-        dots.forEach((dot, idx) => {
-            dot.classList.remove('active');
-            if (idx === sliderIndex) {
-                dot.classList.add('active');
-            }
-        });
-    }
-
-    function slideNext() {
-        sliderIndex = (sliderIndex + 1) % testimonialCards.length;
-        updateSlider();
-    }
-
-    function slidePrev() {
-        sliderIndex = (sliderIndex - 1 + testimonialCards.length) % testimonialCards.length;
-        updateSlider();
-    }
-
-    // Start auto slide
-    function startAutoSlide() {
-        sliderInterval = setInterval(slideNext, 6000);
-    }
-
-    function stopAutoSlide() {
-        clearInterval(sliderInterval);
-    }
-
-    if (testimonialsWrapper) {
-        startAutoSlide();
-        
-        // Listeners for manual triggers
-        nextBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            slideNext();
-            startAutoSlide();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            slidePrev();
-            startAutoSlide();
-        });
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                stopAutoSlide();
-                sliderIndex = parseInt(dot.getAttribute('data-index'), 10);
-                updateSlider();
-                startAutoSlide();
-            });
-        });
-
-        // Pause on hover
-        testimonialsWrapper.addEventListener('mouseenter', stopAutoSlide);
-        testimonialsWrapper.addEventListener('mouseleave', startAutoSlide);
-    }
 
     /* ==========================================================================
        CASE STUDY DATA & MODAL SYSTEMS
@@ -564,130 +488,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ==========================================================================
-       BLOG READER MODAL DATA
-       ========================================================================== */
-    const blogData = {
-        "stock-ml": {
-            title: "How Machine Learning Predicts Stock Prices",
-            category: "Machine Learning",
-            date: "June 12, 2026",
-            img: "assets/blog_stock.png",
-            body: `
-                <p>Predicting the stock market has always been one of the ultimate quests of predictive modeling. With the advent of machine learning, researchers and software developers have moved past standard moving averages to inspect non-linear price trends.</p>
-                
-                <h4>The Power of LSTM Networks</h4>
-                <p>Long Short-Term Memory (LSTM) neural networks, a specialized type of Recurrent Neural Network (RNN), are highly suited for financial markets. Unlike feed-forward networks, LSTMs have internal feedback connections, allowing them to recall historical parameters. This makes them capable of modeling time series data with varying lags.</p>
-                
-                <h4>Preparing Stock Data</h4>
-                <p>Successful forecasting starts with rigorous data normalization. We scale the data between [0, 1] using MinMaxScaler formulas to prevent gradient explosion during training. We structure feature sets into sliding windows—for instance, taking the past 60 days of closing prices to forecast day 61.</p>
-                
-                <h4>Market Caveats</h4>
-                <p>While models can yield high validation scores on past indicators, real markets are subject to exogenous variables: economic guidelines, global supply disruptions, and investor sentiment. A professional system must pair historical forecasting metrics with NLP sentiment indices harvested from news wires to refine predictions.</p>
-            `
-        },
-        "python-beg": {
-            title: "Python for Beginners: From Zero to Scripts",
-            category: "Python Tutorials",
-            date: "May 28, 2026",
-            img: "assets/blog_python.png",
-            body: `
-                <p>Python is celebrated as the go-to programming language for novices and AI scientists alike due to its clean syntax and readability. If you're starting in software, mastering core scripting blocks opens doors to database structures, machine learning, and automation.</p>
-                
-                <h4>Understanding the Basics</h4>
-                <p>Python code reads almost like English. Indentation replaces curly brackets to define blocks, making formatting mandatory for structure. Learn loops, lists, and function calls first:</p>
-                <ul>
-                    <li><strong>Variables:</strong> Dynamically typed. No explicit declaration required.</li>
-                    <li><strong>Collections:</strong> Lists, dictionaries, tuples, and sets are core containers.</li>
-                    <li><strong>Functions:</strong> Created using the <code>def</code> keyword. Keep modules isolated and reusable.</li>
-                </ul>
-                
-                <h4>Writing Automation Scripts</h4>
-                <p>The true power of Python lies in its ecosystem. With built-in packages like <code>os</code> and <code>shutil</code>, or external libraries like <code>requests</code>, you can parse directories, interact with third-party web APIs, or scrape tables in under twenty lines of code.</p>
-                
-                <h4>Next Milestones</h4>
-                <p>Once you are comfortable writing scripts, transition to object-oriented modules and begin experimenting with <code>pandas</code> for data sorting or <code>Flask</code> to run simple local HTTP web servers.</p>
-            `
-        },
-        "ai-blueprint": {
-            title: "Building AI Projects in 2026: A Blueprint",
-            category: "AI Trends",
-            date: "April 15, 2026",
-            img: "assets/blog_ai.png",
-            body: `
-                <p>In 2026, building artificial intelligence systems has transitioned from training raw classifiers to orchestrating large foundation models and agent networks. Today's developers must act as system architects rather than ML-training purists.</p>
-                
-                <h4>Orchestration Frameworks</h4>
-                <p>Rather than executing standalone neural network loops, modern developers use orchestration patterns. Tools like LangChain or custom event loops handle context assembly, memory structures, and tool call triggers, transforming generative models into autonomous agents.</p>
-                
-                <h4>API vs. Open Source Weights</h4>
-                <p>When starting an AI project, choosing the deployment model is a critical decision:</p>
-                <ul>
-                    <li><strong>Model APIs (OpenAI/Gemini):</strong> Highly convenient, powerful, but have latency fluctuations and data egress security concerns.</li>
-                    <li><strong>Local Models (Llama/Mistral):</strong> Complete data control, zero transaction cost, but require specialized hardware (GPUs) to run at scale.</li>
-                </ul>
-                
-                <h4>The Vector DB Factor</h4>
-                <p>Retrieval Augmented Generation (RAG) has become a mandatory standard. Storing company guides as embedded vectors in systems like Pinecone or ChromaDB allows LLMs to retrieve relevant, private details before formulating outputs, eliminating hallucinations.</p>
-            `
-        }
-    };
-
-    const blogModal = document.getElementById('blog-modal');
-    const blogModalCloseBtn = document.getElementById('blog-modal-close-btn');
-    const readBlogBtns = document.querySelectorAll('.read-blog-btn');
-
-    const mBlogTitle = document.getElementById('modal-blog-title');
-    const mBlogCategory = document.getElementById('modal-blog-category');
-    const mBlogDate = document.getElementById('modal-blog-date');
-    const mBlogImg = document.getElementById('modal-blog-img');
-    const mBlogBody = document.getElementById('modal-blog-body');
-
-    function openBlog(postKey) {
-        const data = blogData[postKey];
-        if (!data) return;
-
-        mBlogTitle.textContent = data.title;
-        mBlogCategory.textContent = data.category;
-        mBlogDate.textContent = data.date;
-        mBlogImg.src = data.img;
-        mBlogImg.alt = data.title + " Header Image";
-        mBlogBody.innerHTML = data.body;
-
-        blogModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeBlog() {
-        blogModal.classList.add('hidden');
-        document.body.style.overflow = '';
-    }
-
-    readBlogBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const postKey = btn.getAttribute('data-post');
-            openBlog(postKey);
-        });
-    });
-
-    if (blogModalCloseBtn) {
-        blogModalCloseBtn.addEventListener('click', closeBlog);
-    }
-
-    // Modal background close
-    if (blogModal) {
-        blogModal.addEventListener('click', (e) => {
-            if (e.target === blogModal) {
-                closeBlog();
-            }
-        });
-    }
-
     // Escape key closes modals
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeCaseStudy();
-            closeBlog();
         }
     });
 
@@ -782,38 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ==========================================================================
-       NEWSLETTER FORM VALIDATION
-       ========================================================================== */
-    const newsletterForm = document.getElementById('newsletter-form');
-    const newsletterFeedback = document.getElementById('news-feedback');
 
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const emailInput = document.getElementById('news-email');
-            
-            if (!validateEmail(emailInput.value.trim())) {
-                newsletterFeedback.textContent = "Please provide a valid email address.";
-                newsletterFeedback.className = "news-feedback error";
-                return;
-            }
-
-            // Simulation
-            newsletterFeedback.textContent = "Subscribing...";
-            newsletterFeedback.className = "news-feedback";
-            
-            setTimeout(() => {
-                newsletterFeedback.textContent = "Success! You have subscribed to Dhanush's tech updates.";
-                newsletterFeedback.className = "news-feedback success";
-                emailInput.value = '';
-
-                setTimeout(() => {
-                    newsletterFeedback.textContent = '';
-                }, 5000);
-            }, 1000);
-        });
-    }
 
     /* ==========================================================================
        BACK TO TOP BUTTON
