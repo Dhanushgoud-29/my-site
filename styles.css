@@ -1432,29 +1432,7 @@ html[data-theme="light"] .footer-social-icons a[href*="github.com"]:hover {
     background-color: #0077b5;
 }
 
-.social-icons a[href*="twitter.com"]:hover,
-.footer-social-icons a[href*="twitter.com"]:hover {
-    color: #ffffff;
-    border-color: #1da1f2;
-    box-shadow: 0 0 12px rgba(29, 161, 242, 0.4);
-    background-color: #1da1f2;
-}
 
-.social-icons a[href*="youtube.com"]:hover,
-.footer-social-icons a[href*="youtube.com"]:hover {
-    color: #ffffff;
-    border-color: #ff0000;
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
-    background-color: #ff0000;
-}
-
-.social-icons a[href*="instagram.com"]:hover,
-.footer-social-icons a[href*="instagram.com"]:hover {
-    color: #ffffff;
-    border-color: #e1306c;
-    box-shadow: 0 0 12px rgba(225, 48, 108, 0.4);
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-}
 
 .social-icons svg {
     width: 18px;
